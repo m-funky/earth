@@ -22,11 +22,11 @@ After installing node.js and npm, clone "earth" and install dependencies:
 
 Next, launch the development web server:
 
-    node dev-server.js 8080
+    node dev-server.js 8010
 
 Finally, point your browser to:
 
-    http://localhost:8080
+    http://localhost:8010
 
 The server acts as a stand-in for static S3 bucket hosting and so contains almost no server-side logic. It
 serves all files located in the `earth/public` directory. See `public/index.html` and `public/libs/earth/*.js`
