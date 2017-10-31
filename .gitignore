@@ -6,7 +6,4 @@ scratch
 private
 *.iml
 
-ne_110m_coastline.zip
-ne_110m_lakes.zip
-ne_50m_coastline.zip
-ne_50m_lakes.zip
+tmp

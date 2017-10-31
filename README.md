@@ -44,6 +44,7 @@ simplified, larger scale for animation and a more detailed, smaller scale for st
 [GDAL](http://www.gdal.org/) and TopoJSON (see [here](http://bost.ocks.org/mike/map/#installing-tools)), the
 following commands build these files:
 
+    cd tmp
     curl -L "http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/physical/ne_50m_coastline.zip" -o ne_50m_coastline.zip
     curl -L "http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/physical/ne_50m_lakes.zip" -o ne_50m_lakes.zip
     curl -L "http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_coastline.zip" -o ne_110m_coastline.zip
