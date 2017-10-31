@@ -58,7 +58,7 @@ following commands build these files:
     ogr2ogr -f GeoJSON -simplify 1 -where "scalerank < 2 AND admin='admin-0'" lakes_tiny.json ne_110m_lakes.shp
     topojson -o earth-topo.json coastline_50m.json coastline_110m.json lakes_50m.json lakes_110m.json
     topojson -o earth-topo-mobile.json coastline_110m.json coastline_tiny.json lakes_110m.json lakes_tiny.json
-    cp earth-topo*.json <earth-git-repository>/public/data/
+    cp earth-topo*.json ../public/data/
 
 getting weather data
 --------------------
