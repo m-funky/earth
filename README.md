@@ -22,11 +22,11 @@ After installing node.js and npm, clone "earth" and install dependencies:
 
 Next, launch the development web server:
 
-    node dev-server.js 8080
+    node dev-server.js 8010
 
 Finally, point your browser to:
 
-    http://localhost:8080
+    http://localhost:8010
 
 The server acts as a stand-in for static S3 bucket hosting and so contains almost no server-side logic. It
 serves all files located in the `earth/public` directory. See `public/index.html` and `public/libs/earth/*.js`
@@ -44,10 +44,11 @@ simplified, larger scale for animation and a more detailed, smaller scale for st
 [GDAL](http://www.gdal.org/) and TopoJSON (see [here](http://bost.ocks.org/mike/map/#installing-tools)), the
 following commands build these files:
 
-    curl "http://www.nacis.org/naturalearth/50m/physical/ne_50m_coastline.zip" -o ne_50m_coastline.zip
-    curl "http://www.nacis.org/naturalearth/50m/physical/ne_50m_lakes.zip" -o ne_50m_lakes.zip
-    curl "http://www.nacis.org/naturalearth/110m/physical/ne_110m_coastline.zip" -o ne_110m_coastline.zip
-    curl "http://www.nacis.org/naturalearth/110m/physical/ne_110m_lakes.zip" -o ne_110m_lakes.zip
+    cd tmp
+    curl -L "http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/physical/ne_50m_coastline.zip" -o ne_50m_coastline.zip
+    curl -L "http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/physical/ne_50m_lakes.zip" -o ne_50m_lakes.zip
+    curl -L "http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_coastline.zip" -o ne_110m_coastline.zip
+    curl -L "http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_lakes.zip" -o ne_110m_lakes.zip
     unzip -o ne_\*.zip
     ogr2ogr -f GeoJSON coastline_50m.json ne_50m_coastline.shp
     ogr2ogr -f GeoJSON coastline_110m.json ne_110m_coastline.shp
@@ -57,7 +58,7 @@ following commands build these files:
     ogr2ogr -f GeoJSON -simplify 1 -where "scalerank < 2 AND admin='admin-0'" lakes_tiny.json ne_110m_lakes.shp
     topojson -o earth-topo.json coastline_50m.json coastline_110m.json lakes_50m.json lakes_110m.json
     topojson -o earth-topo-mobile.json coastline_110m.json coastline_tiny.json lakes_110m.json lakes_tiny.json
-    cp earth-topo*.json <earth-git-repository>/public/data/
+    cp earth-topo*.json ../public/data/
 
 getting weather data
 --------------------
@@ -70,10 +71,10 @@ We need only a few of these records to visualize wind data at a particular isoba
 the 1000 hPa wind vectors and convert them to JSON format using the [grib2json](https://github.com/cambecc/grib2json)
 utility:
 
-    YYYYMMDD=<a date, for example: 20140101>
-    curl "http://nomads.ncep.noaa.gov/cgi-bin/filter_gfs.pl?file=gfs.t00z.pgrb2.1p00.f000&lev_10_m_above_ground=on&var_UGRD=on&var_VGRD=on&dir=%2Fgfs.${YYYYMMDD}00" -o gfs.t00z.pgrb2.1p00.f000
+    cd tmp
+    curl "http://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_1p00.pl?file=gfs.t00z.pgrb2.1p00.f000&lev_10_m_above_ground=on&var_UGRD=on&var_VGRD=on&dir=%2Fgfs.`date "+%Y%m%d"`00" -o gfs.t00z.pgrb2.1p00.f000
     grib2json -d -n -o current-wind-surface-level-gfs-1.0.json gfs.t00z.pgrb2.1p00.f000
-    cp current-wind-surface-level-gfs-1.0.json <earth-git-repository>/public/data/weather/current
+    cp current-wind-surface-level-gfs-1.0.json ../public/data/weather/current
 
 font subsetting
 ---------------
